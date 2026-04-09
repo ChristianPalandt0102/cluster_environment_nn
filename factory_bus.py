@@ -4,14 +4,17 @@ import threading
 from queue import Queue
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List
-
 from bus.config import SYSTEM_BUS
 from quantum_bus.config import QUANTUM_BUS
-
 from neural_bus_controller import NeuralBusController
 from evolution_engine import EVOLUTION_ENGINE
 from factory_master import FactoryMaster
 from bus.config import BUS_CONFIG
+from quantum_bus.config import QUANTUM_BUS
+from bus.config import SYSTEM_BUS
+
+print(QUANTUM_BUS.channels["kernel_sync"].ports)
+print(SYSTEM_BUS.fields["Z_Y_X_field"].port_range)
 
 
 # factory_bus.py

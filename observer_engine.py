@@ -1,5 +1,49 @@
+
+
+# observer_engine.py
+
+import json
+import time
+
+
 from gpu_buffer import GPUScoreBuffer
 from integration_cache import IntegrationArrayCache
+
+
+
+class ObserverEngine:
+
+    def __init__(self):
+        self.events = []
+        self.subnetworks = {}
+
+    def register_subnetwork(self, name, meta=None):
+        self.subnetworks[name] = {
+            "meta": meta or {},
+            "last_seen": time.time()
+        }
+
+    def observe(self, data):
+        event = {
+            "timestamp": time.time(),
+            "data": data
+        }
+
+        self.events.append(event)
+
+        print(f"[OBSERVER] event captured -> {data['mutation']}")
+
+    def snapshot(self):
+        return {
+            "subnetworks": self.subnetworks,
+            "events": self.events[-10:]
+        }
+
+    def export_snapshot(self, path="observer_snapshot.json"):
+        with open(path, "w") as f:
+            json.dump(self.snapshot(), f, indent=2)
+
+
 
 class ConsciousnessMeter:
 

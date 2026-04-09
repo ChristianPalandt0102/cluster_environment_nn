@@ -2,6 +2,47 @@
 <script>
 
 /* ===============================
+   DIVERGENCE HEATMAP
+================================ */
+
+const heatPoints = [];
+
+function createHeatPoint(lat, lon){
+
+    const geo = new THREE.SphereGeometry(0.015,8,8);
+    const mat = new THREE.MeshBasicMaterial({
+        color:0x00ff00,
+        transparent:true,
+        opacity:0.7
+    });
+
+    const p = new THREE.Mesh(geo,mat);
+
+    const r = 1.02;
+
+    const phi = (90-lat)*(Math.PI/180);
+    const theta = (lon+180)*(Math.PI/180);
+
+    p.position.set(
+        -r*Math.sin(phi)*Math.cos(theta),
+         r*Math.cos(phi),
+         r*Math.sin(phi)*Math.sin(theta)
+    );
+
+    scene.add(p);
+
+    heatPoints.push({
+        mesh:p,
+        divergence:0
+    });
+}
+
+</script>
+
+
+<script>
+
+/* ===============================
    NEURAL AURA
 ================================ */
 

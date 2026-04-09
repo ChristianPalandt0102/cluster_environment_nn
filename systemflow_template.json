@@ -1,0 +1,15 @@
+{
+  "flow": [
+    "Kernel Boot",
+    "Bus Sync",
+    "Worker Spawn",
+    "Quantum Sync",
+    "Execution Cycle",
+    "Evolution Phase"
+  ],
+  "metrics": {
+    "latency_ms": 0,
+    "throughput": 0,
+    "buffer_usage": 0
+  }
+}

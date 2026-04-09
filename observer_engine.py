@@ -1,6 +1,31 @@
 from gpu_buffer import GPUScoreBuffer
 from integration_cache import IntegrationArrayCache
 
+class ConsciousnessMeter:
+
+    def __init__(self):
+        self.signals = 0
+        self.mutations = 0
+        self.routing_changes = 0
+
+    def event(self, kind):
+
+        if kind == "signal":
+            self.signals += 1
+        elif kind == "mutation":
+            self.mutations += 1
+        elif kind == "rewire":
+            self.routing_changes += 1
+
+    def score(self):
+
+        return (
+            self.signals*0.3 +
+            self.mutations*2 +
+            self.routing_changes*3
+        )
+
+
 
 class ConsciousnessGPU:
 

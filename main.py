@@ -1,13 +1,46 @@
 from evolution_compiler import EvolutionCompiler
 from sandbox_genome_registry import GenomeRegistry
 from adaptive_ring_router import AdaptiveRingRouter
-
-
-
-
 from core_kernel import kernel
 from factory_bus import FactoryBus
 from quantum_bus import QuantumBus
+
+from observer_engine import ObserverEngine
+from hidden_layer_loop import HiddenLayerLoop
+from sandbox_dna_compiler import SandboxDNA
+from neural_router import NeuralRouter
+from observer_ws_stream import run_stream
+import threading
+
+# ---- LOAD DNA ----
+dna = SandboxDNA()
+profile = dna.compile_runtime_profile()
+
+# ---- OBSERVER ----
+observer = ObserverEngine()
+observer.register_subnetwork(dna.client_id)
+
+# ---- ROUTER ----
+router = NeuralRouter(observer)
+router.register_node("A", dna.ports)
+router.register_node("A1", dna.ports)
+
+# ---- HIDDEN LAYER ----
+hidden = HiddenLayerLoop(observer)
+hidden.start()
+
+# ---- WEBSOCKET DASHBOARD ----
+threading.Thread(
+    target=run_stream,
+    args=(observer,),
+    daemon=True
+).start()
+
+# ---- SIMULATED TRAFFIC ----
+import time
+while True:
+    router.adaptive_route({"task": "compute"})
+    time.sleep(3)
 
 factory = FactoryBus()
 qbus = QuantumBus()

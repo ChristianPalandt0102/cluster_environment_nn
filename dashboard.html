@@ -1,5 +1,68 @@
 
 <script>
+/* ===============================
+   NEURAL LINKS after satelite code
+================================ */
+
+const linkMaterial =
+    new THREE.LineBasicMaterial({color:0x00ffcc});
+
+const links = [];
+
+const routingRing = [
+"A1","A","B","C","D","E","F","F1","E","E1"
+];
+
+function findSat(name){
+    return satellites.find(s=>s.userData.name===name);
+}
+
+function createLink(a,b){
+
+    const geo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(),
+        new THREE.Vector3()
+    ]);
+
+    const line = new THREE.Line(geo,linkMaterial);
+    scene.add(line);
+
+    links.push({line,a,b,pulse:Math.random()});
+}
+
+// build ring
+for(let i=0;i<routingRing.length-1;i++){
+    createLink(routingRing[i], routingRing[i+1]);
+}
+
+function updateNeuralLinks(){
+
+    links.forEach(L=>{
+
+        const sa = findSat(L.a);
+        const sb = findSat(L.b);
+
+        if(!sa || !sb) return;
+
+        const positions = [
+            sa.position,
+            sb.position
+        ];
+
+        L.line.geometry.setFromPoints(positions);
+
+        // pulse brightness
+        L.pulse += 0.05;
+        const intensity = (Math.sin(L.pulse)+1)/2;
+
+        L.line.material.opacity = intensity;
+        L.line.material.transparent = true;
+    });
+}
+</script>
+
+
+<script>
 
 const TRI_RADIUS = 2.1;
 

@@ -1,3 +1,15 @@
+
+
+# add inside DreamEngine
+
+def simulate_gpu_future(self, gpu):
+    prediction = gpu.score_activity() * 1.25
+
+    return {
+        "future_load": prediction,
+        "stability_index": 1 / (1 + prediction)
+    }
+
 def generate_predictions(self):
     return [
         {

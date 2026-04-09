@@ -1,4 +1,23 @@
+
+
 from browser import ajax, timer, document
+
+window.addEventListener("sandbox_signal", e => {
+
+    const signal = e.detail;
+
+    quantumNodes.forEach(q=>{
+        if(signal.level === "quantum"){
+            q.material.color.setHex(0x00ffff);
+            setTimeout(()=>{
+                q.material.color.setHex(0xff00ff);
+            },300);
+        }
+    });
+});
+
+
+
 
 def update_score():
 

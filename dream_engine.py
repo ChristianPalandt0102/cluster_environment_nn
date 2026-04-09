@@ -1,4 +1,45 @@
 
+# dream_engine.py
+
+import random
+import json
+import time
+
+FIELDS = [
+    "physics",
+    "networking",
+    "quantum",
+    "biology",
+    "signal_processing",
+    "ai_reasoning"
+]
+
+def generate_template():
+
+    template = {
+        "id": f"TEMP-{random.randint(1000,9999)}",
+        "field": random.choice(FIELDS),
+        "mutation_rate": round(random.random(),3),
+        "ports": random.randint(6,12),
+        "processes": random.randint(2,5),
+        "subprocesses": random.randint(5,12)
+    }
+
+    return template
+
+
+def dream_loop(send):
+
+    while True:
+        tpl = generate_template()
+
+        send(json.dumps({
+            "type":"template_mutation",
+            "template":tpl
+        }))
+
+        time.sleep(5)
+
 
 # add inside DreamEngine
 

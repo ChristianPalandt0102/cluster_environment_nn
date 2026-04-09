@@ -1,0 +1,22 @@
+<div id="flowchart"></div>
+
+<script type="text/python">
+from browser import document
+import json
+
+flow = {
+    "Factory": ["Workers"],
+    "Workers": ["Sandbox Grid", "Dream Engine"],
+    "Sandbox Grid": ["Quantum Bus"],
+    "Quantum Bus": ["Observer Engine"]
+}
+
+html = "<h3>System Flow</h3><ul>"
+
+for k,v in flow.items():
+    html += f"<li><b>{k}</b> → {', '.join(v)}</li>"
+
+html += "</ul>"
+
+document["flowchart"].html = html
+</script>

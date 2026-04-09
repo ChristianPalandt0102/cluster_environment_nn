@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: monospace;
+    background: black;
+    color: #00ffcc;
+}
+
+#panel {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 300px;
+    background: rgba(0,0,0,0.8);
+    padding: 10px;
+    border: 1px solid #00ffcc;
+}
+
+button {
+    margin: 5px;
+    background: black;
+    color: #00ffcc;
+    border: 1px solid #00ffcc;
+    padding: 5px;
+}
+
+#console {
+    height: 200px;
+    overflow-y: auto;
+    font-size: 12px;
+}

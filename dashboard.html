@@ -1,6 +1,28 @@
 
 <script>
 
+const TRI_RADIUS = 2.1;
+
+// upper triangle
+createQuantumNode("Q1",
+    new THREE.Vector3(TRI_RADIUS,0.6,0));
+createQuantumNode("Q2",
+    new THREE.Vector3(-TRI_RADIUS*0.5,0.6,TRI_RADIUS));
+createQuantumNode("Q3",
+    new THREE.Vector3(-TRI_RADIUS*0.5,0.6,-TRI_RADIUS));
+
+// mirrored twin triangle
+createQuantumNode("Q1_T",
+    new THREE.Vector3(TRI_RADIUS,-0.6,0));
+createQuantumNode("Q2_T",
+    new THREE.Vector3(-TRI_RADIUS*0.5,-0.6,TRI_RADIUS));
+createQuantumNode("Q3_T",
+    new THREE.Vector3(-TRI_RADIUS*0.5,-0.6,-TRI_RADIUS));
+
+</script>
+
+<script>
+
 const singularGeo = new THREE.IcosahedronGeometry(0.12,1);
 const singularMat = new THREE.MeshBasicMaterial({
     color:0xffff00,

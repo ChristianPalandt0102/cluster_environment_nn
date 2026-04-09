@@ -1,4 +1,22 @@
+# observer/dashboard.py
 
+from aiohttp import web
+import os
+
+BASE = os.path.dirname(__file__)
+
+async def index(request):
+    return web.FileResponse(f"{BASE}/static/index.html")
+
+app = web.Application()
+app.router.add_get("/", index)
+app.router.add_static("/", f"{BASE}/static")
+
+if __name__ == "__main__":
+    print("Dashboard running:")
+    print("http://localhost:8080")
+
+    web.run_app(app, port=8080)
 from browser import document, websocket
 import json
 

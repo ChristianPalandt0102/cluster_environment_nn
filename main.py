@@ -11,6 +11,19 @@ from sandbox_dna_compiler import SandboxDNA
 from neural_router import NeuralRouter
 from observer_ws_stream import run_stream
 import threading
+from observer_engine import ObserverEngine
+from hidden_layer_loop import HiddenLayerLoop
+
+observer = ObserverEngine()
+observer.register_subnetwork("A1")
+
+hidden_loop = HiddenLayerLoop(observer)
+hidden_loop.start()
+
+while True:
+    pass
+
+
 
 # ---- LOAD DNA ----
 dna = SandboxDNA()

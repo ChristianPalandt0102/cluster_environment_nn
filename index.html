@@ -1,6 +1,119 @@
 
 
+<scri<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Cluster Environment NN</title>
+
+<script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+<style>
+body {
+    margin:0;
+    overflow:hidden;
+    background:black;
+    color:#00ffcc;
+    font-family:monospace;
+}
+
+#terminal {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:180px;
+    background:#000;
+    border-top:1px solid #00ffcc;
+    overflow:auto;
+    padding:10px;
+}
+
+#status {
+    position:absolute;
+    top:10px;
+    left:10px;
+}
+</style>
+</head>
+
+<body onload="brython()">
+
+<div id="status">Cluster Observer Online</div>
+<div id="terminal"></div>
+
 <script>
+
+// ---------- THREE JS EARTH ----------
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(
+    60,
+    window.innerWidth/window.innerHeight,
+    0.1,
+    1000
+);
+
+camera.position.z = 3;
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Earth
+const geometry = new THREE.SphereGeometry(1,64,64);
+
+const texture = new THREE.TextureLoader().load(
+ "https://threejs.org/examples/textures/land_ocean_ice_cloud_2048.jpg"
+);
+
+const material = new THREE.MeshBasicMaterial({map:texture});
+const earth = new THREE.Mesh(geometry, material);
+
+scene.add(earth);
+
+// Stars
+const starsGeometry = new THREE.BufferGeometry();
+const starVertices = [];
+
+for(let i=0;i<10000;i++){
+    starVertices.push(
+        (Math.random()-0.5)*2000,
+        (Math.random()-0.5)*2000,
+        (Math.random()-0.5)*2000
+    );
+}
+
+starsGeometry.setAttribute(
+ 'position',
+ new THREE.Float32BufferAttribute(starVertices,3)
+);
+
+const stars = new THREE.Points(
+    starsGeometry,
+    new THREE.PointsMaterial({size:0.5})
+);
+
+scene.add(stars);
+
+// animation
+function animate(){
+    requestAnimationFrame(animate);
+    earth.rotation.y += 0.0015;
+    renderer.render(scene,camera);
+}
+
+animate();
+
+</script>
+
+<!-- BRYTHON CONTROL -->
+<script type="text/python" src="dashboard.py"></script>
+
+<script>
+
+
 function latLonToVector3(lat, lon, radius) {
 
     const phi = (90 - lat) * (Math.PI/180);

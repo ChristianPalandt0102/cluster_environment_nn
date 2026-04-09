@@ -2,6 +2,42 @@
 <script>
 
 /* ===============================
+   DREAM ENGINE VISUALIZATION
+================================ */
+
+const dreamGroup = new THREE.Group();
+scene.add(dreamGroup);
+
+const dreamNodes = [];
+
+function createDreamNode(sourceSat){
+
+    const geo = new THREE.SphereGeometry(0.018,12,12);
+    const mat = new THREE.MeshBasicMaterial({
+        color:0x66ccff,
+        transparent:true,
+        opacity:0.25
+    });
+
+    const ghost = new THREE.Mesh(geo,mat);
+
+    ghost.userData = {
+        source:sourceSat,
+        drift:Math.random()*10
+    };
+
+    dreamGroup.add(ghost);
+    dreamNodes.push(ghost);
+}
+
+// create ghost twin for each sandbox
+satellites.forEach(s => createDreamNode(s));
+
+</script>
+
+<script>
+
+/* ===============================
    QUANTUM PACKETS
 ================================ */
 

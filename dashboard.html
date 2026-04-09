@@ -2,6 +2,34 @@
 <script>
 
 /* ===============================
+   QUANTUM PACKETS
+================================ */
+
+const packets = [];
+
+function spawnPacket(start,end){
+
+    const geo = new THREE.SphereGeometry(0.015,8,8);
+    const mat = new THREE.MeshBasicMaterial({color:0xffffaa});
+
+    const packet = new THREE.Mesh(geo,mat);
+
+    packet.userData = {
+        start:start.clone(),
+        end:end.clone(),
+        t:0
+    };
+
+    scene.add(packet);
+    packets.push(packet);
+}
+
+</script>
+
+
+<script>
+
+/* ===============================
    DIVERGENCE HEATMAP
 ================================ */
 

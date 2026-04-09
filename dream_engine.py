@@ -3,7 +3,26 @@
 
 import random
 import json
-import time
+import time 
+
+BOXES = [
+"A","B","C","D","E","F",
+"A1","B1","C1","D1","E1","F1"
+]
+
+def generate_future():
+    return {
+        "box": random.choice(BOXES),
+        "level": "quantum",
+        "prediction": True
+    }
+
+def dream_loop(send):
+    while True:
+        send(json.dumps(generate_future()))
+        time.sleep(3)
+
+
 
 FIELDS = [
     "physics",

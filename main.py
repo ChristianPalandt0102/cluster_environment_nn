@@ -5,7 +5,19 @@ from adaptive_ring_router import AdaptiveRingRouter
 
 
 
+from core_kernel import kernel
+from factory_bus import FactoryBus
+from quantum_bus import QuantumBus
 
+factory = FactoryBus()
+qbus = QuantumBus()
+
+kernel.register_node("factory", factory)
+kernel.register_node("quantum", qbus)
+
+factory.boot()
+
+kernel.heartbeat()
 
 
 

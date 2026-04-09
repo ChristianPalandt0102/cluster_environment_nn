@@ -2,6 +2,24 @@
 from hidden_layer_loop import HiddenLayerLoop
 
 
+scheduler = KernelScheduler(grid, cache)
+memory = TemporalMemory()
+research = ResearchAgent(operation_boxes, memory)
+
+async def cognitive_cycle():
+
+    while True:
+
+        scheduler.cycle()
+
+        state = scheduler.observe()
+        memory.recall_similar(state)
+
+        await research.run_experiment()
+
+        await asyncio.sleep(5)
+
+
 energy = EnergyModel(grid)
 consensus = ConsensusCore(grid, energy)
 genesis = GenesisLanguage()

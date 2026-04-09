@@ -5,6 +5,16 @@ import random
 import json
 import time 
 
+
+def simulate_possibilities(self, signals):
+
+    return [
+        {"routing_bias": 0.3},
+        {"cache_growth": 1.2},
+        {"signal_compression": True}
+    ]
+
+
 BOXES = [
 "A","B","C","D","E","F",
 "A1","B1","C1","D1","E1","F1"

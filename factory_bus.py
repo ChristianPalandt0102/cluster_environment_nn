@@ -1,5 +1,18 @@
 from neural_bus_controller import NeuralBusController
 
+from evolution_engine import EVOLUTION_ENGINE
+from factory_master import FactoryMaster
+from bus.config import BUS_CONFIG
+
+
+
+def execute(self, task):
+    dna = EVOLUTION_ENGINE.population.get(self.wid)
+    delay = dna.sleep_factor if dna else 0.01
+
+    time.sleep(delay)
+
+
 NN_CONTROLLER = NeuralBusController()
 
 def neural_cycle():
@@ -7,9 +20,6 @@ def neural_cycle():
     print("[NN BUS]", result)
 
 # factory_bus.py
-
-from factory_master import FactoryMaster
-from bus.config import BUS_CONFIG
 
 class FactoryBus:
 

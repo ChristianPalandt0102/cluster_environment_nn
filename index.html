@@ -1,3 +1,38 @@
+
+<script>
+
+/* ===============================
+   QUANTUM TRI-SINGULAR SYSTEM
+================================ */
+
+const quantumGroup = new THREE.Group();
+scene.add(quantumGroup);
+
+const quantumNodes = [];
+
+function createQuantumNode(name, position){
+
+    const geo = new THREE.OctahedronGeometry(0.06);
+    const mat = new THREE.MeshBasicMaterial({
+        color:0xff00ff,
+        wireframe:true
+    });
+
+    const node = new THREE.Mesh(geo, mat);
+    node.position.copy(position);
+
+    node.userData = {
+        name:name,
+        phase:Math.random()*10
+    };
+
+    quantumGroup.add(node);
+    quantumNodes.push(node);
+}
+
+</script>
+
+
 <div id="identity"></div>
 
 <script type="text/python">

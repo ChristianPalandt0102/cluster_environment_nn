@@ -3,6 +3,40 @@
 import json
 import time
 from pathlib import Path
+import threading
+
+CORTEX_DB = "cortex_memory.json"
+
+
+class MemoryCortex:
+
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.memory = self._load()
+
+    def _load(self):
+        try:
+            with open(CORTEX_DB) as f:
+                return json.load(f)
+        except:
+            return {"events": []}
+
+    def remember(self, source, event):
+
+        with self.lock:
+            self.memory["events"].append({
+                "source": source,
+                "event": event
+            })
+            self._save()
+
+    def query(self, key):
+        return [e for e in self.memory["events"] if key in str(e)]
+
+    def _save(self):
+        with open(CORTEX_DB, "w") as f:
+            json.dump(self.memory, f, indent=2)
+
 
 
 MEMORY_FILE = Path("memory_cortex.json")

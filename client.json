@@ -1,4 +1,26 @@
 {
+{
+  "client_id": "client-A1",
+  "cluster": "dream-fabric",
+  "role": "scientific-node",
+  "network": {
+    "subnet": "A1",
+    "ports": [1200,1201,1202,1203,1204],
+    "routing": "ring"
+  },
+  "dna": {
+    "learning_rate": 0.02,
+    "mutation_factor": 0.15,
+    "observer_enabled": true,
+    "dream_depth": 4
+  },
+  "permissions": {
+    "sandbox_exec": true,
+    "subprocess_spawn": true,
+    "live_injection": false
+  }
+}{
+
   "client_id": "cluster-alpha",
   "network": {
     "ports": [6000,6001,6002,6003,6004],
@@ -10,4 +32,5 @@
     "observer_enabled": true,
     "dream_depth": 4
   }
+}
 }

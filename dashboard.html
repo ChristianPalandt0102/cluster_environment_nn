@@ -1,4 +1,29 @@
 
+<script>
+
+/* ===============================
+   NEURAL AURA
+================================ */
+
+const auraGeo =
+    new THREE.SphereGeometry(1.15,64,64);
+
+const auraMat =
+    new THREE.MeshBasicMaterial({
+        color:0x00ffff,
+        transparent:true,
+        opacity:0.08,
+        wireframe:true
+    });
+
+const neuralAura =
+    new THREE.Mesh(auraGeo,auraMat);
+
+scene.add(neuralAura);
+
+</script>
+
+
 <div id="consciousnessMeter"
 style="
 position:absolute;

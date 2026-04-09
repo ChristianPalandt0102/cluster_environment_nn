@@ -1,4 +1,22 @@
 
+window.addEventListener("sandbox_signal", e => {
+
+    const box = e.detail.box;
+
+    const sat = satellites.find(
+        s=>s.userData.name===box
+    );
+
+    if(!sat) return;
+
+    sat.material.color.setHex(0xffaa00);
+
+    setTimeout(()=>{
+        sat.material.color.setHex(0x00ffcc);
+    },400);
+});
+
+
 <script>
 
 /* ===============================

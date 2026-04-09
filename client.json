@@ -1,0 +1,13 @@
+{
+  "client_id": "cluster-alpha",
+  "network": {
+    "ports": [6000,6001,6002,6003,6004],
+    "routing": "ring"
+  },
+  "dna": {
+    "learning_rate": 0.01,
+    "mutation_factor": 0.2,
+    "observer_enabled": true,
+    "dream_depth": 4
+  }
+}

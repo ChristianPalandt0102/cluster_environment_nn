@@ -6,6 +6,125 @@ import threading
 import importlib
 import json
 import uuid
+import asyncio
+import random
+
+
+
+class HiddenLayerLoop:
+    """
+    Latent evolutionary processing layer.
+    Runs silently in background.
+    """
+
+    def __init__(
+        self,
+        dream_engine,
+        class_builder,
+        temporal_memory,
+        consensus=None,
+        energy_model=None
+    ):
+        self.dream = dream_engine
+        self.builder = class_builder
+        self.memory = temporal_memory
+        self.consensus = consensus
+        self.energy = energy_model
+
+        self.hidden_state = {}
+        self.active = True
+
+    # -------------------------------------------------
+    # STEP 1 — observe current organism signals
+    # -------------------------------------------------
+    def collect_signals(self):
+
+        return {
+            "timestamp": time.time(),
+            "entropy": random.random(),
+            "mutation_pressure": random.random(),
+        }
+
+    # -------------------------------------------------
+    # STEP 2 — dream simulation
+    # -------------------------------------------------
+    def dream_phase(self, signals):
+
+        futures = self.dream.simulate_possibilities(signals)
+
+        if not futures:
+            return None
+
+        return random.choice(futures)
+
+    # -------------------------------------------------
+    # STEP 3 — build candidate structure
+    # -------------------------------------------------
+    def build_candidate(self, future):
+
+        new_class = self.builder.generate_class(
+            name="AutoClass_" + str(int(time.time())),
+            traits=future
+        )
+
+        return new_class
+
+    # -------------------------------------------------
+    # STEP 4 — evaluate mutation
+    # -------------------------------------------------
+    def evaluate(self, candidate):
+
+        score = random.uniform(0, 1)
+
+        decision = score > 0.55
+
+        return decision, score
+
+    # -------------------------------------------------
+    # STEP 5 — inject into system
+    # -------------------------------------------------
+    def inject(self, candidate):
+
+        print("[HiddenLayer] Injecting new structure:",
+              candidate.__name__)
+
+        # runtime registration example
+        globals()[candidate.__name__] = candidate
+
+    # -------------------------------------------------
+    async def cycle(self):
+
+        while self.active:
+
+            signals = self.collect_signals()
+
+            future = self.dream_phase(signals)
+
+            if not future:
+                await asyncio.sleep(3)
+                continue
+
+            candidate = self.build_candidate(future)
+
+            approved, score = self.evaluate(candidate)
+
+            # optional governance approval
+            if approved:
+
+                if self.consensus:
+                    if not self.consensus.decide("hidden_mutation"):
+                        continue
+
+                self.inject(candidate)
+
+                self.memory.remember(
+                    signals,
+                    {"mutation_score": score}
+                )
+
+            await asyncio.sleep(5)
+
+
 
 
 class DreamEngine:

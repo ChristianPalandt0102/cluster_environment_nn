@@ -1,6 +1,43 @@
 
 <script>
 
+const quantumLinks = [];
+
+function connectQuantum(a,b){
+
+    const material =
+        new THREE.LineBasicMaterial({color:0xff00ff});
+
+    const geo = new THREE.BufferGeometry()
+        .setFromPoints([
+            new THREE.Vector3(),
+            new THREE.Vector3()
+        ]);
+
+    const line = new THREE.Line(geo,material);
+    scene.add(line);
+
+    quantumLinks.push({line,a,b});
+}
+
+// triangle links
+for(let i=0;i<3;i++){
+    connectQuantum(quantumNodes[i],
+                   quantumNodes[(i+1)%3]);
+    connectQuantum(quantumNodes[i+3],
+                   quantumNodes[((i+1)%3)+3]);
+}
+
+// singular connections
+quantumNodes.forEach(n=>{
+    connectQuantum(n, singularCore);
+});
+
+</script>
+
+
+<script>
+
 /* ===============================
    DREAM ENGINE VISUALIZATION
 ================================ */

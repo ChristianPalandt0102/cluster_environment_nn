@@ -153,3 +153,24 @@ class FactoryBus:
             "workers": len(self.master.workers),
             "status": "running"
         }
+
+class FactoryBus:
+
+    def plan(self, nn_result):
+
+        return [
+            {"task": "compute", "target": "A1"},
+            {"task": "optimize", "target": "B2"}
+        ]
+
+    def execute(self, tasks):
+
+        results = []
+        for t in tasks:
+            results.append({
+                "task": t,
+                "status": "done",
+                "value": 0.95
+            })
+        return results
+

@@ -21,6 +21,9 @@ class UnifiedBus:
         self.nn = NNBus()
         self.quantum = QuantumBus()
         self.exporter = SystemExporter()
+        self.stream = StreamGateway()
+        self.stream_safety = StreamSafety()
+
 
     # --- CORE CYCLE ---
 

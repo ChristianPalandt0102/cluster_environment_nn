@@ -111,6 +111,19 @@ class UnifiedBus:
         return data
 
 
+async def start_streams(bus):
+
+    await asyncio.gather(
+        bus.stream.connect(
+            "btc",
+            "wss://stream.binance.com:9443/ws/btcusdt@trade"
+        ),
+        bus.stream.connect(
+            "echo",
+            "wss://echo.websocket.events"
+        )
+    )
+
 
 
 

@@ -32,6 +32,59 @@ class UnifiedBus:
         # 3. Decide workload
         tasks = self.factory.plan(nn_result)
 
+#_________Network introducement_________
+
+    q_state = self.quantum.sample_state()
+
+    # --- REAL NETWORK INPUT ---
+    net_data = self.network.fetch("httpbin")
+
+    nn_result = self.nn.process(q_state)
+
+    tasks = self.factory.plan(nn_result)
+
+    # --- SAFETY CHECK BEFORE EXECUTION ---
+    safe, reason = self.safety.enforce(
+        state={
+            "latency": nn_result.get("score", 0),
+            "entropy": q_state.get("entropy", 0)
+        },
+        action="compute"
+    )
+
+    if not safe:
+        self.exporter.log(f"[BLOCKED] {reason}")
+        return {"status": "blocked", "reason": reason}
+
+    results = self.factory.execute(tasks)
+
+    # --- SAFE EVOLUTION ---
+    evo = evolution_cycle({
+        "latency": nn_result.get("score", 0),
+        "entropy": q_state.get("entropy", 0)
+    })
+
+    code_safe, code_reason = self.safety.validate_code(
+        evo["design"]["name"]
+    )
+
+    if not code_safe:
+        self.exporter.log(f"[CODE BLOCKED] {code_reason}")
+    else:
+        self.evolution_log.append(evo)
+
+    data = {
+        "quantum": q_state,
+        "nn": nn_result,
+        "network": net_data,
+        "results": results
+    }
+
+    self.exporter.stream(data)
+
+    return data
+
+
         # 4. Execute tasks
         results = self.factory.execute(tasks)
 

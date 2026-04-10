@@ -35,6 +35,8 @@ def start(ev):
     timer.set_interval(lambda: run_cycle(), 2000)
 
 
+log(f"[EVOLUTION] {data.get('evolution')}")
+
 # --- Bind UI ---
 
 document["start"].bind("click", start)

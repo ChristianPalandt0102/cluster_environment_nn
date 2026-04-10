@@ -156,6 +156,48 @@ class UnifiedBus:
         return data
 
 
+
+
+    q_state = self.quantum.sample_state()
+
+    raw_stream = self.stream.get_latest()
+    safe_stream = self.stream_safety.filter(raw_stream)
+
+    # --- FUSION ---
+    fused = self.fusion.fuse(safe_stream)
+
+    nn_result = self.nn.process({
+        "quantum": q_state,
+        "fusion": fused
+    })
+
+    tasks = self.factory.plan(nn_result)
+
+    safe, reason = self.safety.enforce(
+        state={
+            "latency": nn_result.get("score", 0),
+            "entropy": q_state.get("entropy", 0)
+        },
+        action="analyze"
+    )
+
+    if not safe:
+        return {"status": "blocked", "reason": reason}
+
+    results = self.factory.execute(tasks)
+
+    data = {
+        "fusion": fused,
+        "stream": safe_stream,
+        "nn": nn_result,
+        "results": results
+    }
+
+    self.exporter.stream(data)
+
+    return data
+
+
 async def start_streams(bus):
 
     await asyncio.gather(

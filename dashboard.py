@@ -68,3 +68,17 @@ import json
 
 def bench_endpoint():
     return json.dumps(FACTORY.benchmark())
+
+from browser import ajax
+import json
+
+def fetch_data():
+
+    def on_complete(req):
+        data = json.loads(req.text)
+        log(f"[LIVE] {data['agi']}")
+
+    req = ajax.ajax()
+    req.bind('complete', on_complete)
+    req.open('GET', '/streams/live_stream.json', True)
+    req.send()

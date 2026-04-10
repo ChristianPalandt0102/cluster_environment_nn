@@ -22,6 +22,7 @@ class UnifiedBus:
         self.network = NetworkInterface()
         self.factory = FactoryBus()
         self.nn = NNBus()
+        self.fusion = FusionEngine()
         self.quantum = QuantumBus()
         self.exporter = SystemExporter()
         self.stream = StreamGateway()

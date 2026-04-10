@@ -1,0 +1,14 @@
+> status
+System running
+
+> run
+{ fusion: ..., anomaly: ..., results: ... }
+
+> anomaly
+[0.5, 0.7, 1.2]
+
+> exec ls
+(output)
+
+> exec rm -rf /
+Command blocked

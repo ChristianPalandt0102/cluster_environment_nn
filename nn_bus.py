@@ -42,3 +42,16 @@ class NNBus:
         encoded = self.encode_signal(signal)
         score = self.route_score(encoded)
         return encoded, score
+
+class NNBus:
+
+    def process(self, input_state):
+
+        return {
+            "score": 0.82,
+            "pattern": "emergent_cluster"
+        }
+
+    def learn(self, results):
+        # update weights (mock)
+        pass

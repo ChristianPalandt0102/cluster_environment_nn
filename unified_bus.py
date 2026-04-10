@@ -9,6 +9,9 @@ from network_interface import NetworkInterface
 from stream_gateway import StreamGateway
 from stream_safety import StreamSafety
 import asyncio
+from fusion_engine import FusionEngine
+
+
 
 class UnifiedBus:
 

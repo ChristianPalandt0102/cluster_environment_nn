@@ -9,3 +9,6 @@ def export_binary():
 
     with open("system_output/snapshots/data.bin", "wb") as f:
         pickle.dump(data, f)
+
+
+log(f"[FUSION SCORE] {data['fusion']['fusion_score']}")

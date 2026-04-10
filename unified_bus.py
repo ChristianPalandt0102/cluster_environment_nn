@@ -9,8 +9,11 @@ from network_interface import NetworkInterface
 
 class UnifiedBus:
 
-    def __init__(self):
 
+    def __init__(self):
+       
+        self.safety = SafetyLayer()
+        self.network = NetworkInterface()
         self.factory = FactoryBus()
         self.nn = NNBus()
         self.quantum = QuantumBus()

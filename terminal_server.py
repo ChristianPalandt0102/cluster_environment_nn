@@ -42,6 +42,16 @@ async def handle(ws):
 
         await ws.send(response)
 
+elif msg.strip() == "run":
+    result = bus.cycle()
+    response = str(result)
+
+elif msg.strip() == "fusion":
+    response = str(bus.fusion)
+
+elif msg.strip() == "anomaly":
+    response = str(bus.anomaly.history)
+
 
 async def main():
     async with websockets.serve(handle, "0.0.0.0", 8765):

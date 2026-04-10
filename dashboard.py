@@ -86,3 +86,15 @@ def fetch_data():
     req.bind('complete', on_complete)
     req.open('GET', '/streams/live_stream.json', True)
     req.send()
+def fetch_data():
+
+    def on_complete(req):
+        data = json.loads(req.text)
+
+        if "stream" in data:
+            log(f"[STREAM] {data['stream'][-1]}")
+
+    req = ajax.ajax()
+    req.bind('complete', on_complete)
+    req.open('GET', '/streams/live_stream.json', True)
+    req.send()

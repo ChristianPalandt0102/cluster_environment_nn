@@ -60,6 +60,10 @@ def message(evt):
         )
     )
 
+log(f"[NETWORK] {data.get('network')}")
+log(f"[SAFETY] {data.get('status', 'ok')}")
+
+
 
 # inside dashboard.py
 

@@ -5,6 +5,14 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById("container").appendChild(renderer.domElement);
 
+function updateNodes(fusionScore) {
+
+    nodes.forEach(n => {
+        n.scale.setScalar(1 + fusionScore * 0.1);
+    });
+}
+
+
 // Earth
 const geometry = new THREE.SphereGeometry(5, 64, 64);
 const material = new THREE.MeshBasicMaterial({ wireframe: true });

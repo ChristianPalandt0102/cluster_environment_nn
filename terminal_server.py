@@ -4,6 +4,11 @@ import asyncio
 import websockets
 import subprocess
 
+from core.unified_bus import UnifiedBus
+
+bus = UnifiedBus()
+
+
 
 async def handle(ws):
 

@@ -46,3 +46,33 @@ class UnifiedBus:
         self.exporter.stream(data)
 
         return data
+
+#______step:technical evolution____________
+
+
+from evolution_integration import evolution_cycle
+
+
+class UnifiedBus:
+
+    def __init__(self):
+        ...
+        self.evolution_log = []
+
+    def cycle(self):
+
+        ...
+
+        # --- evolution trigger ---
+        system_state = {
+            "latency": 0.6,
+            "entropy": q_state["entropy"]
+        }
+
+        evo = evolution_cycle(system_state)
+
+        self.evolution_log.append(evo)
+
+        self.exporter.log(f"NEW SUBSYSTEM: {evo['design']['name']}")
+
+       ...

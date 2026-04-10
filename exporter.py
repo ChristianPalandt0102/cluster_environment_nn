@@ -38,6 +38,20 @@ class SystemExporter:
             "observer": collect_observer(),
             "quantum": collect_quantum()
         }
+"evolution": {
+    "new_systems": len(self.history),
+    "last": self.history[-1] if self.history else None
+}
+
+
+
+
+
+    def snapshot(self):
+
+        data = self.collect_all()
+        name = f"snapshot_{int(time.time())}.json"
+
 
 # inside exporter.collect_all()
 
@@ -46,13 +60,7 @@ class SystemExporter:
     "cycles": len(self.history)
 }
 
-
-    def snapshot(self):
-
-        data = self.collect_all()
-        name = f"snapshot_{int(time.time())}.json"
-
-        path = SNAPSHOT_DIR / name
+    path = SNAPSHOT_DIR / name
         path.write_text(json.dumps(data, indent=2))
 
         self.history.append(name)

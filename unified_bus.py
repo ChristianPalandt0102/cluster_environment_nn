@@ -6,6 +6,9 @@ from quantum_bus import QuantumBus
 from system_output.exporter import SystemExporter
 from safety_layer import SafetyLayer
 from network_interface import NetworkInterface
+from stream_gateway import StreamGateway
+from stream_safety import StreamSafety
+import asyncio
 
 class UnifiedBus:
 

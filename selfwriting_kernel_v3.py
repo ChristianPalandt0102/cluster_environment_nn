@@ -6,6 +6,10 @@ import time
 SAFE_ZONE = Path("generated_modules")
 SAFE_ZONE.mkdir(exist_ok=True)
 
+from meta_compiler import MetaCompiler
+
+self.compiler = MetaCompiler()
+compiled_path = self.compiler.compile(mutation)
 
 class SelfWritingKernel:
 
